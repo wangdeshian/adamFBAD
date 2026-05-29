@@ -633,10 +633,18 @@
 
   .reveal {
     opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* 保底：若 JS 未觸發，2秒後強制顯示 */
+  .reveal-fallback-active .reveal {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
@@ -855,19 +863,36 @@
   <div class="footer-copy">© 2026 Adam Wang · 聯捷人力 · 保留一切權利</div>
 </footer>
 
-<!-- 捲動顯示動畫（獨立運作，不依賴 Firebase） -->
+<!-- 捲動顯示動畫 -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
+
+    // 保底：1.5秒後若仍有未顯示的元素，強制全部顯示
+    const fallback = setTimeout(function() {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }, 1500);
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+        // 若全部已顯示，取消保底計時器
+        if (document.querySelectorAll('.reveal:not(.visible)').length === 0) {
+          clearTimeout(fallback);
         }
-      });
-    }, { threshold: 0.08 });
-    revealEls.forEach(el => observer.observe(el));
+      }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+      revealEls.forEach(el => observer.observe(el));
+    } else {
+      // 不支援 IntersectionObserver，直接全部顯示
+      revealEls.forEach(el => el.classList.add('visible'));
+      clearTimeout(fallback);
+    }
   });
 </script>
 
