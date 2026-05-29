@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>得賢引才 — 王得賢｜外籍人才引進顧問</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Noto+Sans+TC:wght@300;400;500&family=Lora:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #fdf8f2;
+    --bg2:      #f7f0e6;
+    --bg3:      #f0e8d8;
+    --brown:    #6b4c2a;
+    --brown-md: #9b7248;
+    --brown-lt: #c4a07a;
+    --text:     #3d2c1e;
+    --muted:    #8c7060;
+    --border:   rgba(107,76,42,0.15);
+    --shadow:   0 4px 24px rgba(107,76,42,0.10);
+    --shadow-lg:0 12px 48px rgba(107,76,42,0.14);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(253,248,242,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.12em;
+    color: var(--brown);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: var(--muted);
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--brown); }
+
+  .nav-cta {
+    background: var(--brown) !important;
+    color: white !important;
+    padding: 0.4rem 1.1rem !important;
+    border-radius: 99px !important;
+    font-weight: 500 !important;
+  }
+
+  .nav-cta:hover { background: var(--brown-md) !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 5rem;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,160,122,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1.2rem;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    font-size: 0.75rem;
+    color: var(--brown-md);
+    letter-spacing: 0.12em;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.1;
+    color: var(--brown);
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.4s forwards;
+  }
+
+  .hero-title span { color: var(--brown-lt); }
+
+  .hero-sub {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.15rem;
+    color: var(--muted);
+    margin-top: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.55s forwards;
+  }
+
+  .hero-desc {
+    max-width: 520px;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 2;
+    margin: 2rem auto 0;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.7s forwards;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.85s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: var(--brown);
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    border-radius: 8px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(107,76,42,0.25);
+  }
+
+  .btn-primary:hover {
+    background: var(--brown-md);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(107,76,42,0.3);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    background: white;
+    color: var(--brown);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    border-radius: 8px;
+    border: 1.5px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--brown-lt);
+    background: var(--bg2);
+    transform: translateY(-2px);
+  }
+
+  /* Stats row */
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+    animation: fadeUp 0.7s 1s forwards;
+    flex-wrap: wrap;
+  }
+
+  .hero-stat {}
+
+  .hero-stat-num {
+    font-family: 'Lora', serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+    color: var(--brown);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    padding: 7rem 5rem;
+    background: var(--bg2);
+  }
+
+  .section-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    letter-spacing: 0.3em;
+    color: var(--brown-md);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    background: var(--bg3);
+    padding: 0.3rem 0.9rem;
+    border-radius: 99px;
+  }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .about-headline {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+    line-height: 1.5;
+    color: var(--brown);
+    margin: 0.5rem 0 1.5rem;
+  }
+
+  .about-headline em {
+    color: var(--brown-lt);
+    font-style: normal;
+    border-bottom: 2px solid var(--brown-lt);
+  }
+
+  .about-body {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 2.1;
+  }
+
+  .about-body + .about-body { margin-top: 1rem; }
+
+  .certs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+
+  .cert {
+    padding: 0.4rem 1rem;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    color: var(--brown-md);
+    box-shadow: var(--shadow);
+  }
+
+  .about-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+
+  .about-card-quote {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--brown-md);
+    border-left: 3px solid var(--brown-lt);
+    padding-left: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .about-card-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .about-card-stat-num {
+    font-family: 'Lora', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--brown);
+    line-height: 1;
+  }
+
+  .about-card-stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.2rem;
+  }
+
+  /* ── SERVICES ── */
+  #services {
+    padding: 7rem 5rem;
+    background: var(--bg);
+  }
+
+  .services-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 4rem;
+  }
+
+  .services-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    color: var(--brown);
+    margin: 0.5rem 0 1rem;
+    line-height: 1.4;
+  }
+
+  .services-title em { color: var(--brown-lt); font-style: normal; }
+
+  .services-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .service-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2.2rem 1.8rem;
+    border: 1.5px solid var(--border);
+    box-shadow: var(--shadow);
+    transition: all 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brown-lt), var(--brown));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--brown-lt);
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .service-name {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--brown);
+    margin-bottom: 0.6rem;
+  }
+
+  .service-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+
+  /* ── BROWSE CANDIDATES ── */
+  #browse {
+    padding: 5rem;
+    background: var(--bg3);
+    text-align: center;
+  }
+
+  .browse-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 3.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+
+  .browse-emoji { font-size: 3rem; margin-bottom: 1rem; }
+
+  .browse-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: var(--brown);
+    margin-bottom: 0.8rem;
+  }
+
+  .browse-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 2;
+    margin-bottom: 2rem;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    padding: 7rem 5rem;
+    background: var(--bg2);
+  }
+
+  .contact-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .contact-heading {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: var(--brown);
+    line-height: 1.4;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .contact-heading em { color: var(--brown-lt); font-style: normal; }
+
+  .contact-sub {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 2;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.88rem;
+    padding: 1rem 1.3rem;
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--brown-lt);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .contact-link-icon { font-size: 1.3rem; flex-shrink: 0; }
+  .contact-link-arrow { margin-left: auto; color: var(--brown-lt); font-size: 0.8rem; }
+
+  /* Form */
+  .contact-form-wrap {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+
+  .form-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--brown);
+    margin-bottom: 1.8rem;
+  }
+
+  .form-group { margin-bottom: 1.2rem; }
+
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--brown-md);
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.88rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    resize: none;
+    appearance: none;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--brown-lt);
+    box-shadow: 0 0 0 3px rgba(196,160,122,0.15);
+    background: white;
+  }
+
+  .form-group select option { background: white; }
+
+  .form-submit {
+    width: 100%;
+    padding: 0.9rem;
+    background: var(--brown);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 16px rgba(107,76,42,0.25);
+  }
+
+  .form-submit:hover {
+    background: var(--brown-md);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg3);
+    padding: 2rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    color: var(--brown);
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    #about { padding: 5rem 1.5rem; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    #services { padding: 5rem 1.5rem; }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    #browse { padding: 4rem 1.5rem; }
+    .browse-inner { padding: 2.5rem 1.5rem; }
+    #contact { padding: 5rem 1.5rem; }
+    .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+    footer { flex-direction: column; gap: 0.8rem; padding: 1.5rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-stats { gap: 2rem; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">得賢引才</div>
+  <ul class="nav-links">
+    <li><a href="#about">關於</a></li>
+    <li><a href="#services">服務</a></li>
+    <li><a href="https://www.imaid.com.tw/biox/index.php?fun=resume&sales=adam" target="_blank">人才資料庫</a></li>
+    <li><a href="#contact" class="nav-cta">立即諮詢</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-badge">✦ 外籍人才引進顧問 · 近 20 年專業資歷</div>
+  <h1 class="hero-title"><span>得賢</span>引才</h1>
+  <p class="hero-sub">Adam Wang · 王得賢</p>
+  <p class="hero-desc">以近二十年的深厚資歷，為每一位雇主找到最合適的人力解方，為每一位移工建立在台灣最溫暖的新起點。</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">
+      免費諮詢
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="https://www.imaid.com.tw/biox/index.php?fun=resume&sales=adam" target="_blank" class="btn-secondary">
+      瀏覽人選
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">20+</div>
+      <div class="hero-stat-label">年專業資歷</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">180+</div>
+      <div class="hero-stat-label">在管移工人數</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">乙級</div>
+      <div class="hero-stat-label">就業服務技術士</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="reveal">
+      <span class="section-tag">關於王得賢</span>
+      <h2 class="about-headline">深耕引才近二十年，<br>以<em>真誠</em>與<em>專業</em>陪伴每個家</h2>
+      <p class="about-body">王得賢（Adam Wang），現任職聯捷人力，擁有近 20 年外籍勞工仲介資歷。持有乙級就業服務技術士證照及長照人員結業證書，專業橫跨家庭看護、家庭幫傭、護理之家及工廠製造業等多元場域。</p>
+      <p class="about-body">「引才」不只是媒合工作，更是為雇主解決困難、為移工建立安心的生活。每一個案子，都用心對待。</p>
+      <div class="certs">
+        <span class="cert">乙級就業服務技術士</span>
+        <span class="cert">長照人員結業證書</span>
+        <span class="cert">聯捷人力資深顧問</span>
+      </div>
+    </div>
+    <div class="about-card reveal">
+      <p class="about-card-quote">「引對人才，是給家庭最好的禮物；安頓移工，是我們共同的責任。」</p>
+      <div class="about-card-stats">
+        <div>
+          <div class="about-card-stat-num">20+</div>
+          <div class="about-card-stat-label">年豐富資歷</div>
+        </div>
+        <div>
+          <div class="about-card-stat-num">180+</div>
+          <div class="about-card-stat-label">在管移工人數</div>
+        </div>
+        <div>
+          <div class="about-card-stat-num">4</div>
+          <div class="about-card-stat-label">服務場域類型</div>
+        </div>
+        <div>
+          <div class="about-card-stat-num">乙級</div>
+          <div class="about-card-stat-label">就業服務證照</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header reveal">
+    <span class="section-tag">服務項目</span>
+    <h2 class="services-title">用心服務，<em>每個家</em>都照顧到</h2>
+    <p class="services-sub">無論是家庭照護、機構配置或產業人力，都能提供最貼心的媒合服務。</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-icon">🏠</div>
+      <div class="service-name">家庭看護</div>
+      <p class="service-desc">為有長期照護需求的家庭引進專業外籍看護，全程申辦、入境安置及在宅適應支援。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🧹</div>
+      <div class="service-name">家庭幫傭</div>
+      <p class="service-desc">協助有家務、育兒需求的家庭媒合外籍幫傭，完整處理簽證、入境及勞雇關係管理。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏥</div>
+      <div class="service-name">護理之家</div>
+      <p class="service-desc">為護理之家、養護機構規劃外籍照護人員配置，兼顧排班、法規合規與移工權益。</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏭</div>
+      <div class="service-name">工廠製造業</div>
+      <p class="service-desc">協助製造業引進穩定外籍產線人力，處理勞動部申請、宿舍規劃及在台生活管理。</p>
+    </div>
+  </div>
+</section>
+
+<!-- BROWSE CANDIDATES -->
+<section id="browse">
+  <div class="browse-inner reveal">
+    <div class="browse-emoji">🔍</div>
+    <h2 class="browse-title">立即瀏覽可用人選</h2>
+    <p class="browse-desc">即時更新的外籍移工履歷資料庫，可依需求篩選合適人選，直接線上瀏覽每位候選人的基本資料與技能背景。</p>
+    <a href="https://www.imaid.com.tw/biox/index.php?fun=resume&sales=adam" target="_blank" class="btn-primary" style="display:inline-flex;margin:0 auto;">
+      前往人才資料庫
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div>
+      <span class="section-tag reveal">聯絡我</span>
+      <h2 class="contact-heading reveal">找到對的人，<br><em>從一通諮詢開始</em></h2>
+      <p class="contact-sub reveal">無論是首次引進外籍移工，或現有管理遇到問題，歡迎直接聯繫，提供免費初步諮詢。</p>
+      <div class="contact-links reveal">
+        <a href="https://lin.ee/UE73u47" target="_blank" class="contact-link">
+          <span class="contact-link-icon">💬</span>
+          <span>LINE 官方帳號諮詢</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://www.facebook.com/AdamAgency.tw" target="_blank" class="contact-link">
+          <span class="contact-link-icon">📘</span>
+          <span>Facebook 粉絲專頁</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://www.instagram.com/wangdeshian" target="_blank" class="contact-link">
+          <span class="contact-link-icon">📷</span>
+          <span>Instagram @wangdeshian</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+        <a href="https://wangdeshian.github.io/AdamAgency.tw/" target="_blank" class="contact-link">
+          <span class="contact-link-icon">🌐</span>
+          <span>AdamAgency.tw 官網</span>
+          <span class="contact-link-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap reveal">
+      <p class="form-title">留下需求，盡快回覆 🤝</p>
+      <form onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label>姓名</label>
+          <input type="text" placeholder="您的姓名" required>
+        </div>
+        <div class="form-group">
+          <label>聯絡電話 / LINE</label>
+          <input type="text" placeholder="方便聯絡的方式" required>
+        </div>
+        <div class="form-group">
+          <label>需求類型</label>
+          <select>
+            <option value="">請選擇服務類型</option>
+            <option>家庭看護</option>
+            <option>家庭幫傭</option>
+            <option>護理之家</option>
+            <option>工廠製造業</option>
+            <option>其他諮詢</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>備註說明</label>
+          <textarea rows="3" placeholder="簡述您的需求（可略）"></textarea>
+        </div>
+        <button type="submit" class="form-submit">送出諮詢需求 →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">得賢引才</div>
+  <div class="footer-copy">© 2026 Adam Wang · 聯捷人力 · 保留一切權利</div>
+</footer>
+
+<!-- 捲動顯示動畫（獨立運作，不依賴 Firebase） -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    revealEls.forEach(el => observer.observe(el));
+  });
+</script>
+
+<!-- Firebase 表單送出 -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDtMhGApSIrWT0QnvHpqLrPp5RXwBCQeZc",
+    authDomain: "adambrand-5cdea.firebaseapp.com",
+    projectId: "adambrand-5cdea",
+    storageBucket: "adambrand-5cdea.firebasestorage.app",
+    messagingSenderId: "761248624202",
+    appId: "1:761248624202:web:34c060ff1e1b727eae80b3",
+    measurementId: "G-TCJ6351C26"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.handleSubmit = async function(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('.form-submit');
+    const form = e.target;
+
+    const name    = form.querySelector('input[placeholder="您的姓名"]').value.trim();
+    const contact = form.querySelector('input[placeholder="方便聯絡的方式"]').value.trim();
+    const service = form.querySelector('select').value;
+    const note    = form.querySelector('textarea').value.trim();
+
+    btn.textContent = '送出中...';
+    btn.disabled = true;
+
+    try {
+      await addDoc(collection(db, "consultations"), {
+        name, contact, service, note,
+        createdAt: serverTimestamp()
+      });
+      btn.textContent = '✓ 已收到！將盡速與您聯繫 😊';
+      btn.style.background = '#5a8a6a';
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      btn.textContent = '送出失敗，請直接聯繫 LINE';
+      btn.style.background = '#8a5a5a';
+      btn.disabled = false;
+    }
+  };
+</script>
+</body>
+</html>
